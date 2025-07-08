@@ -1,3 +1,4 @@
+using API.Extensions;
 using CrossCutting.IoC;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -6,7 +7,7 @@ var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddControllers();
 builder.Services.AddInfrastructureAPI(builder.Configuration);
-
+builder.Services.AddGlobalExceptionHandler();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 

@@ -15,17 +15,22 @@ namespace CrossCutting.IoC
         public static IServiceCollection AddInfrastructureAPI(this IServiceCollection services,
        IConfiguration configuration)
         {
+            // Database
             services.AddDbContext<AppDbContext>(options =>
-               options.UseSqlServer(configuration.GetConnectionString("DefaultConnection")));
+                options.UseSqlServer(configuration.GetConnectionString("DefaultConnection")));
 
+            // Repositories
             services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
             services.AddScoped<IBookRepository, BookRepository>();
             services.AddScoped<IGenreRepository, GenreRepository>();
             services.AddScoped<IAuthorRepository, AuthorRepository>();
 
+            // Services
             services.AddScoped<IGenreService, GenreService>();
-            services.AddScoped<IAuthorRepository, AuthorRepository>();
+            //services.AddScoped<IAuthorService, AuthorService>();
+            //services.AddScoped<IBookService, BookService>();
 
+            // Mapster
             services.AddMapster();
 
             return services;
