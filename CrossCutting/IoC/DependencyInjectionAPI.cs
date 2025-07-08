@@ -1,6 +1,9 @@
-﻿using Domain.Interfaces;
+﻿using Application.Interfaces;
+using Application.Services;
+using Domain.Interfaces;
 using Infra.Context;
 using Infra.Repositories;
+using Mapster;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -17,8 +20,13 @@ namespace CrossCutting.IoC
 
             services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
             services.AddScoped<IBookRepository, BookRepository>();
+            services.AddScoped<IGenreRepository, GenreRepository>();
+            services.AddScoped<IAuthorRepository, AuthorRepository>();
 
-            //services.AddAutoMapper(typeof(DomainToDTOMappingProfile));
+            services.AddScoped<IGenreService, GenreService>();
+            services.AddScoped<IAuthorRepository, AuthorRepository>();
+
+            services.AddMapster();
 
             return services;
         }

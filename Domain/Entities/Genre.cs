@@ -1,5 +1,8 @@
-﻿namespace Domain.Entities
+﻿using Mapster;
+
+namespace Domain.Entities
 {
+    [AdaptTo("[name]DTO"), GenerateMapper]
     public class Genre
     {
         public int Id { get; set; }
