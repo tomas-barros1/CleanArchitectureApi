@@ -27,8 +27,8 @@ namespace CrossCutting.IoC
 
             // Services
             services.AddScoped<IGenreService, GenreService>();
-            //services.AddScoped<IAuthorService, AuthorService>();
-            //services.AddScoped<IBookService, BookService>();
+            services.AddScoped<IAuthorService, AuthorService>();
+            services.AddScoped<IBookService, BookService>();
 
             // Mapster
             services.AddMapster();
