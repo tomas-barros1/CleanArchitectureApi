@@ -1,6 +1,6 @@
 # Clean Architecture API
 
-Uma API RESTful construída com ASP.NET Core 7.0 seguindo os princípios da Clean Architecture.
+Uma API RESTful construída com ASP.NET 8 seguindo os princípios da Clean Architecture.
 
 ## 📋 Estrutura do Projeto
 
@@ -8,76 +8,106 @@ Uma API RESTful construída com ASP.NET Core 7.0 seguindo os princípios da Clea
 CleanArchitectureApi/
 ├── API/                 # Camada de apresentação
 ├── Application/         # Camada de aplicação
-├── Domain/             # Camada de domínio
-├── Infrastructure/     # Camada de infraestrutura
-└── CrossCutting/      # Camada de injeção de dependências
+├── Domain/              # Camada de domínio
+├── Infra/               # Camada de infraestrutura
+├── CrossCutting/        # Injeção de dependências
+├── Tests/               # Testes automatizados
 ```
 
 ## 🚀 Principais Características
 
 - Clean Architecture
 - SOLID Principles
-- Dependency Injection
+- Injeção de Dependência
 - Entity Framework Core
 - Global Exception Handling
 - DTOs e Auto Mapping
 - Repository Pattern
 - Docker Support
+- Testes automatizados (xUnit, Moq)
 
-## 🛠️ Tecnologias Utilizadas
+## 🛠️ Tecnologias e Bibliotecas Utilizadas
 
-- .NET 7.0
-- Entity Framework Core
-- SQL Server
-- Docker
-- Swagger/OpenAPI
+- **.NET 8.0**
+- **Entity Framework Core 8** (`Microsoft.EntityFrameworkCore.Design`, `Microsoft.EntityFrameworkCore.SqlServer`, `Microsoft.EntityFrameworkCore.Tools`)
+- **SQL Server** (banco de dados relacional)
+- **Swagger/OpenAPI** (`Swashbuckle.AspNetCore`)
+- **Mapster** e **Mapster.DependencyInjection** (mapeamento e DI)
+- **Microsoft.Extensions.DependencyInjection.Abstractions** (injeção de dependência)
+- **Docker** (containerização)
+- **xUnit** (testes unitários)
+- **Moq** (mocks para testes)
+- **coverlet.collector** (cobertura de testes)
+- **Microsoft.NET.Test.Sdk** (infraestrutura de testes)
+- **Microsoft.Data.SqlClient** (acesso a dados em testes)
 
 ## 📦 Pré-requisitos
 
-- .NET 7.0 SDK
-- Docker (opcional)
-- SQL Server ou SQL Server Docker
+- .NET 8.0 SDK
+- Docker
+- SQL Server ou Docker Compose
 
 ## 🏃‍♂️ Como Executar
+
+### Usando Docker
+
+1. Execute o docker-compose:
+
+```bash
+docker-compose up -d
+```
+
+2. Acesse o Swagger para testar a API:
+
+```
+http://localhost:8080/swagger
+```
 
 ### Usando .NET CLI
 
 1. Clone o repositório
-
-```bash
-git clone [url-do-repositorio]
-```
-
-2. Navegue até a pasta do projeto
-
-```bash
-cd CleanArchitectureApi
-```
-
-3. Restaure os pacotes
+2. Restaure os pacotes:
 
 ```bash
 dotnet restore
 ```
 
-4. Execute as migrações
+3. Execute as migrações:
 
 ```bash
 dotnet ef database update --project Infra --startup-project API
 ```
 
-5. Execute o projeto
+4. Execute a API:
 
 ```bash
 dotnet run --project API
 ```
 
-### Usando Docker
+## 📚 Exemplos de Requests
 
-1. Execute o docker-compose
+### Listar livros
 
 ```bash
-docker-compose up -d
+curl http://localhost:8080/api/books
+```
+
+### Criar livro
+
+```bash
+curl -X POST http://localhost:8080/api/books \
+  -H "Content-Type: application/json" \
+  -d '{"title":"Livro Teste","authorId":1,"genreId":1}'
+```
+
+## 🔬 Testes Automatizados
+
+Os testes estão no diretório `Tests/` e usam xUnit, Moq e coverlet para cobertura.
+
+Para rodar os testes:
+
+```bash
+dotnet test
 ```
 
 ## 📚 API Endpoints
@@ -108,7 +138,8 @@ docker-compose up -d
 
 ## 🔧 Configuração
 
-A aplicação usa as seguintes variáveis de ambiente que podem ser configuradas no `appsettings.json` ou através de variáveis de ambiente:
+A aplicação usa as seguintes variáveis de ambiente (podem ser configuradas no `appsettings.json` ou via Docker Compose):
 
 - `ConnectionStrings:DefaultConnection`: String de conexão com o banco de dados
 - `Logging:LogLevel:Default`: Nível de log padrão
+- `ASPNETCORE_ENVIRONMENT`: Ambiente de execução (Development, Production)
