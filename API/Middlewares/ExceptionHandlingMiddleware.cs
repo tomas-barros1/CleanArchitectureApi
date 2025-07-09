@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 public class ExceptionHandlingMiddleware
 {
@@ -26,7 +27,9 @@ public class ExceptionHandlingMiddleware
                 KeyNotFoundException => (StatusCodes.Status404NotFound, "Resource not found"),
                 UnauthorizedAccessException => (StatusCodes.Status401Unauthorized, "Unauthorized"),
                 ArgumentException => (StatusCodes.Status400BadRequest, "Bad request"),
-                _ => (StatusCodes.Status500InternalServerError, "An unexpected error occurred")
+                NullReferenceException => (StatusCodes.Status422UnprocessableEntity, "Unprocessable Entity"),
+                DbUpdateException => (StatusCodes.Status422UnprocessableEntity, "Unprocessable Entity"),
+                _ => (StatusCodes.Status500InternalServerError, "An unexpected error occurred"),
             };
 
             _logger.LogError(ex, "Exception occurred: {Message}", ex.Message);
